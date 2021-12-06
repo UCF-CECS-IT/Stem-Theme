@@ -25,6 +25,17 @@
 //
 // Project-specific styles and overrides
 //
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.person-icon {
+  position: absolute;
+  left: 0.5rem;
+  margin-right: 1rem;
+}
 
 // Add/import your theme's custom styles here
 // ...

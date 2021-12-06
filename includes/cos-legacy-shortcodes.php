@@ -345,21 +345,50 @@ function show_people($atts) {
 				if (get_field('email') === "N/A")
 					$person['email'] = "";
 				?>
-				<div class="col-xl-3 col-md-4 mb-3">
-					<div class="card">
+				<div class="col-lg-4 col-md-6 mb-3">
+					<div class="card h-100">
 						<?php if ( $attributes['hide-photos'] != 'yes' ): ?>
 							<a href="<?php echo $personLink; ?>"><img class="card-img-top" src="<?php echo $personPhoto[0]; ?>" alt="<?php echo $personLastName; ?>"></a>
 						<?php endif; ?>
 
-						<div class="card-body">
-							<h5 class="heading-underline text-transform-none">
-								<a class="text-primary" href="<?php echo $personLink; ?>">
+						<div class="p-3 font-size-sm">
+							<h5 class="text-transform-none">
+								<a class="text-secondary" href="<?php echo $personLink; ?>">
 									<?php echo $personLastName; ?>, <?php echo $personFirstName; ?>
 								</a>
 							</h5>
 
+							<hr class="bg-primary my-2">
+
 							<?php if ( array_filter( $person ) ): // display full set of personal info ?>
-								<i class="icon-user"></i> <?php echo $person['position']; ?>
+								<?php if ( ! empty( $person['position'] ) ): ?>
+									<div class="d-flex flex-row position-relative">
+										<i class="text-muted fas fa-user mt-1 mr-3"></i>
+										<span><?php echo $person['position']; ?></span>
+									</div>
+								<?php endif; ?>
+
+								<?php if ( ! empty( $person['location'] ) ): ?>
+									<div class="d-flex flex-row position-relative">
+										<i class="text-muted fas fa-map-marker-alt mt-1 mr-3"></i>
+										<span><?php echo $person['location']; ?></span>
+									</div>
+								<?php endif; ?>
+
+								<?php if ( ! empty( $person['phone'] ) ): ?>
+									<div class="d-flex flex-row position-relative">
+										<i class="text-muted fas fa-mobile-alt mt-1 mr-3"></i>
+										<span><?php echo $person['phone']; ?></li></span>
+									</div>
+								<?php endif; ?>
+
+								<?php if ( ! empty( $person['email'] ) ): ?>
+									<div class="ellipsis">
+										<i class="text-muted fas fa-envelope mt-1 mr-2"></i>
+										<a class="" href="mailto:<?php echo $person['email']; ?>"><?php echo $person['email']; ?></a>
+									</div>
+								<?php endif; ?>
+
 							<?php endif; ?>
 						</div>
 					</div>
@@ -367,19 +396,6 @@ function show_people($atts) {
 			<?php endwhile; ?>
 		</div>
 	<?php endif; ?>
-
-								<?php if ( ! empty( $person['position'] ) ): ?>
-									<li class="person_position"></li>
-								<?php endif; ?>
-								<?php if ( ! empty( $person['location'] ) ): ?>
-									<li class="person_location"><i class="icon-map-marker"></i> <?php echo $person['location']; ?></li>
-								<?php endif; ?>
-								<?php if ( ! empty( $person['phone'] ) ): ?>
-									<li class="person_phone"><i class="icon-mobile-phone"></i> <?php echo $person['phone']; ?></li>
-								<?php endif; ?>
-								<?php if ( ! empty( $person['email'] ) ): ?>
-									<li class="person_email"><i class="icon-envelope-alt"></i> <a href="mailto:<?php echo $person['email']; ?>"><?php echo $person['email']; ?></a></li>
-								<?php endif; ?>
 
 	<?php
 	wp_reset_query();
