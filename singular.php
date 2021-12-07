@@ -38,7 +38,7 @@ if ( $navigationSidebar ) {
 									$bg = 'bg-faded';
 								}
 								?>
-								<a class="list-group-item list-group-item-action pl-4 <?php echo $bg; ?>" href="<?php echo $link; ?>"><?php echo $page; ?></a>
+								<a class="list-group-item list-group-item-action font-size-sm py-2 pl-4 <?php echo $bg; ?>" href="<?php echo $link; ?>"><?php echo $page; ?></a>
 							<?php endwhile; ?>
 						</div>
 					<?php endif; ?>
@@ -66,7 +66,7 @@ if ( $navigationSidebar ) {
 							<?php while( have_rows( 'feec_agenda_sidebar', 'option' ) ): the_row();
 								$content = get_sub_field( 'content' );
 								?>
-								<li class="list-group-item list-group-item-action pl-4 bg-faded"><?php echo $content; ?></li>
+								<li class="list-group-item list-group-item-action pl-4 bg-faded font-size-sm py-2"><?php echo $content; ?></li>
 							<?php endwhile; ?>
 						</ul>
 
