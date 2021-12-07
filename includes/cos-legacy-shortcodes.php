@@ -348,7 +348,9 @@ function show_people($atts) {
 				<div class="col-lg-4 col-md-6 mb-3">
 					<div class="card h-100">
 						<?php if ( $attributes['hide-photos'] != 'yes' ): ?>
-							<a href="<?php echo $personLink; ?>"><img class="card-img-top" src="<?php echo $personPhoto[0]; ?>" alt="<?php echo $personLastName; ?>"></a>
+							<div class="aspect-ratio-square">
+								<a href="<?php echo $personLink; ?>"><img class="card-img-top" src="<?php echo $personPhoto[0]; ?>" alt="<?php echo $personLastName; ?>"></a>
+							</div>
 						<?php endif; ?>
 
 						<div class="p-3 font-size-sm">

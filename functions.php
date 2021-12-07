@@ -13,6 +13,7 @@ include_once STEM_THEME_DIR . 'includes/cos-legacy-admin.php';
 include_once STEM_THEME_DIR . 'includes/cos-legacy-functions.php';
 include_once STEM_THEME_DIR . 'includes/cos-legacy-post-types.php';
 include_once STEM_THEME_DIR . 'includes/cos-legacy-shortcodes.php';
+include_once STEM_THEME_DIR . 'includes/header-functions.php';
 include_once STEM_THEME_DIR . 'includes/post-list-layout-people.php';
 include_once STEM_THEME_DIR . 'includes/sidebar.php';
 

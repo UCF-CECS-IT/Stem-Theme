@@ -3,12 +3,15 @@
 get_header();
 the_post();
 
-$navigationSidebar = get_field( 'use_navigation_sidebar', $post->ID );
-$feecSidebar = get_field( 'use_feec_sidebars', $post->ID );
+$args = array(
+	'taxonomy' => 'people_cat',
+	'orderby' => 'name',
+	'order'   => 'ASC'
+);
 
-if ( $navigationSidebar ) {
-	$sidebarOption = cos_sidebar( get_field( 'navigation_sidebar', $post->ID ) );
-}
+$cats = get_categories($args);
+
+$navigationSidebar = count($cats ?? []);
 
 //PersonBasics array used to only show info if entered
 $personBasics = array(
@@ -82,20 +85,24 @@ endif;
 
 ?>
 <article class="<?php echo $post->post_status; ?> post-list-item">
-	<div class="container mb-5 pb-sm-4">
+	<div class="container mt-4 mt-sm-5 mb-5 pb-sm-4">
 		<div class="row">
 			<!-- Content column -->
 			<div class="col">
 				<!-- Header -->
-				<div class="row mb-4">
+				<div class="row mb-4 justify-content-center">
 					<?php if ( !empty($person['p_photo']) ): ?>
-						<div class="col-lg-3 col-md-4">
-
+						<div class=" col-md-4 col-11 text-center">
+							<!-- <div class="aspect-ratio-square"> -->
+								<img class="img-fluid mb-3" src="<?php echo $person['p_photo']; ?>" alt="<?php echo $peron['p_last_name']; ?>">
+							<!-- </div> -->
 						</div>
 
 					<?php endif; ?>
 
-					<div class="col-lg-9 col-md-8">
+					<div class="col-md-8">
+						<h3 class=""><?php echo $person['p_first_name']; ?> <?php echo $person['p_last_name']; ?></h3>
+						<hr class="bg-primary my-2">
 						<?php if ( $personBasics['person_position'] ): ?>
 							<div class="d-flex flex-row">
 								<i class="text-muted fas fa-user mt-1 mr-3"></i>
@@ -157,49 +164,11 @@ endif;
 					<!-- Navigation -->
 					<?php if ( $navigationSidebar ): ?>
 						<div class="list-group mb-4">
-							<a class="list-group-item font-weight-bold text-primary bg-inverse-t-3" href="#"><?php echo get_field( 'navigation_sidebar', $post->ID ); ?></a>
-							<?php while( have_rows( $sidebarOption, 'option' ) ): the_row();
-								$page = get_sub_field( 'page_name' );
-								$link = get_sub_field( 'link' );
-
-								if ( $link == get_permalink( $post ) ) {
-									$bg = 'bg-default';
-								} else {
-									$bg = 'bg-faded';
-								}
-								?>
-								<a class="list-group-item list-group-item-action pl-4 <?php echo $bg; ?>" href="<?php echo $link; ?>"><?php echo $page; ?></a>
-							<?php endwhile; ?>
+							<a class="list-group-item font-weight-bold text-primary bg-inverse-t-3" href="#">People</a>
+							<?php foreach( $cats as $cat ): ?>
+								<a class="list-group-item list-group-item-action pl-4 bg-faded font-size-sm py-2" href="<?php echo get_bloginfo('url') . "/group/{$cat->slug}/"; ?>"><?php echo $cat->name; ?></a>
+							<?php endforeach; ?>
 						</div>
-					<?php endif; ?>
-
-					<!-- FEEC-specific -->
-					<?php if ( $feecSidebar ): ?>
-						<div class="list-group mb-4">
-							<a class="list-group-item font-weight-bold text-primary bg-inverse-t-3" href="#">FEEC Conference</a>
-							<?php while( have_rows( 'feec_conference_pages_sidebar', 'option' ) ): the_row();
-								$page = get_sub_field( 'page_name' );
-								$link = get_sub_field( 'link' );
-
-								if ( $link == get_permalink( $post ) ) {
-									$bg = 'bg-default';
-								} else {
-									$bg = 'bg-faded';
-								}
-								?>
-								<a class="list-group-item list-group-item-action pl-4 <?php echo $bg; ?>" href="<?php echo $link; ?>"><?php echo $page; ?></a>
-							<?php endwhile; ?>
-						</div>
-
-						<ul class="list-group mb-4">
-							<li class="list-group-item font-weight-bold text-primary bg-inverse-t-3">FEEC Agenda</li>
-							<?php while( have_rows( 'feec_agenda_sidebar', 'option' ) ): the_row();
-								$content = get_sub_field( 'content' );
-								?>
-								<li class="list-group-item list-group-item-action pl-4 bg-faded"><?php echo $content; ?></li>
-							<?php endwhile; ?>
-						</ul>
-
 					<?php endif; ?>
 				</div>
 			<?php endif; ?>
