@@ -149,12 +149,14 @@ endif;
 				</div>
 
 				<!-- Content -->
-				<ul class="nav nav-tabs" id="myTab" role="tablist">
-					<?php echo $contentTabHeadings; ?>
-				</ul>
-				<div class="tab-content" id="myTabContent">
-					<?php echo $contentTabBody; ?>
-				</div>
+				<?php if ($contentTabHeadings): ?>
+					<ul class="nav nav-tabs" id="myTab" role="tablist">
+						<?php echo $contentTabHeadings; ?>
+					</ul>
+					<div class="tab-content" id="myTabContent">
+						<?php echo $contentTabBody; ?>
+					</div>
+				<?php endif; ?>
 			</div>
 
 			<?php if ( $navigationSidebar ): ?>
