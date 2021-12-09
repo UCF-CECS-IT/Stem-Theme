@@ -86,6 +86,8 @@ if( have_rows('tabs')):
 	endwhile;
 endif;
 
+$peopleHeaderWidth = empty($person['p_photo']) ? 'col-md-12' : 'col-md-8';
+
 ?>
 <article class="<?php echo $post->post_status; ?> post-list-item">
 	<div class="container mt-4 mt-sm-5 mb-5 pb-sm-4">
@@ -103,7 +105,7 @@ endif;
 
 					<?php endif; ?>
 
-					<div class="col-md-8">
+					<div class="<?php echo $peopleHeaderWidth; ?>">
 						<h3 class=""><?php echo $person['p_first_name']; ?> <?php echo $person['p_last_name']; ?></h3>
 						<hr class="bg-primary my-2">
 						<?php if ( $personBasics['person_position'] ): ?>
