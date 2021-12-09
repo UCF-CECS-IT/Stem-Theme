@@ -73,13 +73,16 @@ $personBasicsContent = '';
 $showNews = get_field('cos_person_news_feed');
 
 if( have_rows('tabs')):
+	$i = 1;
 	while(have_rows('tabs')) : the_row();
 		$tab_title = preg_replace('/[^A-Za-z0-9\-]/', '', get_sub_field('tab_title'));
-		$active = ($tab_title == 'Biography') ? 'active' : '';
+		$active = ($i == 1) ? 'active' : '';
 
 		$contentTabHeadings .= '<li class="nav-item"><a class="nav-link ' . $active. '" id="contact-tab" data-toggle="tab" href="#' . $tab_title . '" role="tab" aria-controls="' . $tab_title . '" aria-selected="false">' . get_sub_field('tab_title') . '</a></li>';
 
 		$contentTabBody .= '<div class="tab-pane fade show px-1 py-2 ' . $active . '" id="' . $tab_title . '" role="tabpanel" aria-labelledby="home-tab">' . get_sub_field('tab_content') . '</div>';
+
+		$i++;
 	endwhile;
 endif;
 

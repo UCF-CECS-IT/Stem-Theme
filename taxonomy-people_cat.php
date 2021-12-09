@@ -12,7 +12,6 @@ $cats = get_categories($args);
 
 $navigationSidebar = count($cats ?? []);
 
-
 ?>
 
 <section id="main_content">
