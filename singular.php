@@ -5,6 +5,7 @@ the_post();
 
 $navigationSidebar = get_field( 'use_navigation_sidebar', $post->ID );
 $feecSidebar = get_field( 'use_feec_sidebars', $post->ID );
+$secmeSidebar = get_field( 'use_secme_sidebars', $post->ID );
 
 if ( $navigationSidebar ) {
 	$sidebarOption = cos_sidebar( get_field( 'navigation_sidebar', $post->ID ) );
@@ -14,7 +15,7 @@ if ( $navigationSidebar ) {
 
 <article class="<?php echo $post->post_status; ?> post-list-item">
 	<div class="container mt-4 mt-sm-5 mb-5 pb-sm-4">
-		<?php if ( $navigationSidebar ): ?>
+		<?php if ( $navigationSidebar ||  $feecSidebar || $secmeSidebar ): ?>
 			<div class="row">
 				<!-- Content column -->
 				<div class="col-md-9">
@@ -70,6 +71,47 @@ if ( $navigationSidebar ) {
 							<?php endwhile; ?>
 						</ul>
 
+					<?php endif; ?>
+
+					<!-- SECME-specific -->
+					<?php if ( $secmeSidebar ): ?>
+						<?php
+							$secmeThemeSidebar = get_field( 'secme_theme_sidebar', 'option' );
+						?>
+						<div class="list-group mb-4">
+							<a class="list-group-item font-weight-bold text-primary bg-inverse-t-3" href="#">
+								<?php if ( $secmeThemeSidebar['year'] ?? false ): ?>
+									<?php echo $secmeThemeSidebar['year']; ?>
+								<?php endif; ?>
+								Competition Theme
+							</a>
+							<?php if ( $secmeThemeSidebar['message']): ?>
+								<li class="list-group-item list-group-item-action pl-4 bg-faded font-size-sm py-2">
+									<div><?php echo $secmeThemeSidebar['message']; ?></div>
+								</li>
+							<?php endif; ?>
+						</div>
+
+						<ul class="list-group mb-4">
+							<li class="list-group-item font-weight-bold text-primary bg-inverse-t-3">Dates:</li>
+							<?php while( have_rows( 'secme_dates_sidebar', 'option' ) ): the_row();
+								$date = get_sub_field( 'date');
+								$heading = get_sub_field( 'heading' );
+								$content = get_sub_field( 'content' );
+								?>
+								<li class="list-group-item list-group-item-action d-flex flex-column align-items-start pl-4 bg-faded font-size-sm py-2">
+									<?php if ( $date ): ?>
+										<div class="font-weight-bold"><?php echo $date; ?></div>
+									<?php endif; ?>
+									<?php if ( $heading ): ?>
+										<div class="font-italic"><?php echo $heading; ?></div>
+									<?php endif; ?>
+									<?php if ( $content ): ?>
+										<div><?php echo $content; ?></div>
+									<?php endif; ?>
+								</li>
+							<?php endwhile; ?>
+						</ul>
 					<?php endif; ?>
 				</div>
 			</div>
