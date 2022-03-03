@@ -75,6 +75,21 @@ if ( $navigationSidebar ) {
 
 					<!-- SECME-specific -->
 					<?php if ( $secmeSidebar ): ?>
+						<div class="list-group mb-4">
+							<a class="list-group-item font-weight-bold text-primary bg-inverse-t-3" href="#">SECME</a>
+							<?php while( have_rows( 'secme_links', 'option' ) ): the_row();
+								$page = get_sub_field( 'page_name' );
+								$link = get_sub_field( 'link' );
+
+								if ( $link == get_permalink( $post ) ) {
+									$bg = 'bg-default';
+								} else {
+									$bg = 'bg-faded';
+								}
+								?>
+								<a class="list-group-item list-group-item-action pl-4 <?php echo $bg; ?>" href="<?php echo $link; ?>"><?php echo $page; ?></a>
+							<?php endwhile; ?>
+						</div>
 						<?php
 							$secmeThemeSidebar = get_field( 'secme_theme_sidebar', 'option' );
 						?>
